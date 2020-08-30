@@ -1,4 +1,5 @@
 import marshmallow
+from datetime import datetime
 from marshmallow import validates, ValidationError, validates_schema
 
 from app.api.schemas.customer import CustomerSchema
@@ -30,12 +31,19 @@ class ReservationSchema(ma.SQLAlchemyAutoSchema):
             raise ValidationError("Customer with id: #%d does not exist." % customer_id)
 
     @validates_schema(skip_on_field_errors=True)
-    def validate_object(self, data, **kwargs):
+    def validate_date(self, data, **kwargs):
         if not data['start'] <= data['end']:
             raise marshmallow.ValidationError(
                 'start should not be less than end',
                 'start'
             )
+
+        if data['start'] < datetime.today().date():
+            raise marshmallow.ValidationError(
+                'start can not be in the past',
+                'start'
+            )
+
 
         if not Reservation.is_free(data['start'], data['end']):
             raise marshmallow.ValidationError(

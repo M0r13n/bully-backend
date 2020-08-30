@@ -5,6 +5,7 @@ __version__ = "0.0.1"
 setup(
     name="bully-backend",
     version=__version__,
+    python_requires='>3.8.0',
     packages=find_packages(exclude=[]),
     install_requires=[
         "flask",
@@ -20,6 +21,6 @@ setup(
         "python-dotenv",
     ],
     entry_points={
-        "console_scripts": []
+        "console_scripts": [""]
     },
 )

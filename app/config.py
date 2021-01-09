@@ -14,3 +14,5 @@ SECRET_KEY = os.getenv("SECRET_KEY", 'my-precious')
 
 SQLALCHEMY_DATABASE_URI = os.getenv("DATABASE_URI", "sqlite:///database.db")
 SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+WEBHOOK_URL = os.getenv("WEBHOOK_URL", "NOT-SET") # If this is not set slack.send_notification will raise an error

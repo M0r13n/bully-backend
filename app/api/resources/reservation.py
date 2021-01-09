@@ -5,6 +5,7 @@ from marshmallow import ValidationError
 from app.api.schemas import ReservationSchema
 from app.common.dates import first_day_of_current_month, first_day_of_next_month
 from app.common.pagination import paginate
+from app.common.slack import send_notification
 from app.extensions import db
 from app.models.reservation import Reservation
 
@@ -38,5 +39,9 @@ class ReservationList(Resource):
 
         db.session.add(reservation)
         db.session.commit()
+
+        send_notification(
+            f"{reservation.customer.first_name} {reservation.customer.last_name} hat eine Reservierung erstellt."
+        )
 
         return {"msg": "reservation created", "reservation": schema.dump(reservation)}, 201

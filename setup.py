@@ -19,7 +19,8 @@ setup(
         "flask-wtf",
         "marshmallow-sqlalchemy",
         "python-dotenv",
-        "psycopg2"
+        "psycopg2",
+        "requests"
     ],
     entry_points={
         "console_scripts": [""]
